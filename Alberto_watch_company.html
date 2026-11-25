@@ -1,0 +1,855 @@
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alberto Watch Company | Luxury Horology</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --luxury-gold: #e6c27a; /* Brighter, high-contrast gold */
+            --dark-bg: #121212; /* Deep charcoal for maximum readability */
+            --card-bg: #1e1e1e; /* Elevated dark card background */
+            --text-light: #ffffff; /* Pure white text for high contrast */
+            --text-muted: #b3b3b3; /* Readable light grey */
+            --glass-bg: rgba(30, 30, 30, 0.85);
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, .playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-light);
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.95) !important;
+            border-bottom: 1px solid rgba(230, 194, 122, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.9rem;
+            color: var(--luxury-gold) !important;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .logo-svg {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: var(--luxury-gold);
+            stroke-width: 1.5;
+        }
+
+        /* Nav Links */
+        .nav-link {
+            color: #ffffff !important;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--luxury-gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after, .nav-link.active-link::after {
+            width: 100%;
+        }
+
+        .nav-link:hover, .active-link {
+            color: var(--luxury-gold) !important;
+        }
+
+        /* SPA Section Hiding */
+        .spa-section {
+            display: none;
+            padding: 80px 0;
+            flex: 1;
+            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #home { display: block; }
+
+        /* Hero Section */
+        .hero-banner {
+            background: linear-gradient(rgba(18, 18, 18, 0.6), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1548171915-e7afaca07798?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            padding: 180px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(230, 194, 122, 0.4);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            margin-bottom: 50px;
+        }
+
+        /* Buttons */
+        .btn-luxury {
+            background-color: transparent;
+            color: var(--luxury-gold);
+            border: 2px solid var(--luxury-gold);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            padding: 12px 30px;
+            border-radius: 4px;
+        }
+
+        .btn-luxury:hover, .btn-luxury.active {
+            background-color: var(--luxury-gold);
+            color: var(--dark-bg);
+            box-shadow: 0 0 20px rgba(230, 194, 122, 0.4);
+        }
+        
+        .btn-solid-gold {
+            background-color: var(--luxury-gold);
+            color: var(--dark-bg) !important;
+            border: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-radius: 4px;
+            padding: 15px 30px;
+        }
+        
+        .btn-solid-gold:hover {
+            background-color: #f7d591;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230, 194, 122, 0.5);
+            color: #000 !important;
+        }
+
+        /* Product Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(230, 194, 122, 0.15);
+            transition: all 0.4s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.6);
+            border-color: var(--luxury-gold);
+        }
+
+        .product-img {
+            height: 300px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(230, 194, 122, 0.2);
+            transition: transform 0.8s ease;
+        }
+        
+        .card:hover .product-img {
+            transform: scale(1.08);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Editorial Modal & Inquiry Form */
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--luxury-gold);
+            color: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+        }
+        .modal-header { 
+            border-bottom: 1px solid rgba(230, 194, 122, 0.3);
+            background-color: rgba(18,18,18,0.95);
+        }
+        .btn-close { filter: invert(1); opacity: 0.8; }
+        .btn-close:hover { opacity: 1; }
+        
+        /* High contrast form inputs */
+        .form-control {
+            background-color: #2a2a2a;
+            border: 1px solid #555;
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            background-color: #333;
+            border-color: var(--luxury-gold);
+            color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(230, 194, 122, 0.3);
+        }
+        .form-label {
+            color: var(--luxury-gold);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        /* Technology Grid */
+        .tech-box {
+            background: var(--glass-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(230, 194, 122, 0.15);
+            height: 100%;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .tech-box:hover {
+            border-color: var(--luxury-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(230, 194, 122, 0.2);
+        }
+        .tech-icon {
+            font-size: 3rem;
+            color: var(--luxury-gold);
+            margin-bottom: 25px;
+            text-shadow: 0 4px 10px rgba(230, 194, 122, 0.4);
+        }
+
+        /* Masonry Gallery */
+        .gallery-masonry {
+            column-count: 3;
+            column-gap: 25px;
+        }
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 30px 15px 15px;
+            text-align: center;
+            color: var(--luxury-gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        @media (max-width: 992px) { .gallery-masonry { column-count: 2; } }
+        @media (max-width: 576px) { .gallery-masonry { column-count: 1; } }
+
+        /* Scrolling Ticker */
+        .ticker-container {
+            background-color: #050505;
+            color: var(--luxury-gold);
+            padding: 12px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            border-top: 2px solid rgba(230, 194, 122, 0.4);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.8);
+        }
+
+        /* Visitor Count */
+        .visitor-badge {
+            font-size: 0.8rem;
+            background-color: rgba(230, 194, 122, 0.15);
+            border: 1px solid var(--luxury-gold);
+            padding: 8px 18px;
+            border-radius: 30px;
+            color: var(--luxury-gold);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #080808;
+            border-top: 1px solid rgba(230, 194, 122, 0.3);
+            padding: 70px 0 40px;
+            margin-top: auto;
+            margin-bottom: 45px; /* Space for ticker */
+        }
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+        .footer-link:hover { color: var(--luxury-gold); }
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin-right: 20px;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .social-icons a:hover { color: var(--luxury-gold); transform: translateY(-3px); }
+
+        .section-title {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 3rem;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 3px;
+            background-color: var(--luxury-gold);
+            display: block;
+            margin: 25px auto 0;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-target="home">
+                <svg class="logo-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="55" r="40" />
+                    <circle cx="50" cy="55" r="35" stroke-width="0.5" stroke-dasharray="2,2"/>
+                    <path d="M50 25 L50 55 L70 55" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <rect x="42" y="5" width="16" height="8" rx="2" fill="none"/>
+                </svg>
+                Alberto Watch Co.
+            </a>
+            <div class="visitor-badge ms-auto me-3 d-lg-none">
+                <i class="fas fa-eye me-1"></i> <span class="visitor-count-mobile">0</span>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active-link" data-target="home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" data-target="products">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" data-target="technology">Technology</a></li>
+                    <li class="nav-item"><a class="nav-link" data-target="gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" data-target="about-contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" data-target="sitemap">Site Map</a></li>
+                </ul>
+                <div class="visitor-badge d-none d-lg-block shadow">
+                    <i class="fas fa-eye me-1"></i> Session Visits: <span class="visitor-count-desktop">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container" style="margin-top: 110px;">
+        
+        <!-- Home Section -->
+        <section id="home" class="spa-section text-center">
+            <div class="hero-banner">
+                <h1 class="playfair" style="color: var(--luxury-gold); font-size: 4.5rem; margin-bottom: 30px; text-shadow: 3px 3px 15px rgba(0,0,0,0.9); font-weight: 700;">Masterpieces of Time</h1>
+                <p style="font-size: 1.25rem; line-height: 2; max-width: 850px; margin: 0 auto; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.9); font-weight: 400;">
+                    Time is the ultimate luxury, and at Alberto Watch Company, we believe in wearing it beautifully. Step into a world where precision engineering meets timeless elegance. Whether you are captivated by the distinguished heritage of a vintage classic, the cutting-edge innovation of a modern smartwatch, or the unrivaled prestige of a luxury timepiece, our curated collection is designed to elevate your everyday. Discover the art of horology and let your wrist tell a story of sophistication, success, and impeccable taste.
+                </p>
+                <button class="btn btn-solid-gold mt-5 px-5 py-3 fs-5 shadow-lg" onclick="$('.nav-link[data-target=\'products\']').click();">Discover The Collection</button>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="spa-section">
+            <h2 class="section-title">Our Exclusive Line-up</h2>
+            <div class="text-center mb-5 pb-3">
+                <button class="btn btn-luxury category-btn active mx-1 my-2" data-category="All">All Timepieces</button>
+                <button class="btn btn-luxury category-btn mx-1 my-2" data-category="Luxury">Luxury Prestige</button>
+                <button class="btn btn-luxury category-btn mx-1 my-2" data-category="Vintage">Vintage Classics</button>
+                <button class="btn btn-luxury category-btn mx-1 my-2" data-category="Smart Watches">Smart Innovation</button>
+            </div>
+            <div class="row g-5" id="product-list">
+                <!-- Injected via JSON -->
+            </div>
+        </section>
+
+        <!-- Technology Section -->
+        <section id="technology" class="spa-section">
+            <h2 class="section-title">The Art of Engineering</h2>
+            <p class="text-center mb-5 pb-4 fs-5" style="max-width: 900px; margin: 0 auto;">
+                Our diverse collections represent the pinnacle of horological achievement. Explore the mechanical mastery and digital innovation that drive the entire Alberto Watch Co. catalog.
+            </p>
+            <div class="row g-4">
+                <div class="col-md-6 col-xl-3">
+                    <div class="tech-box text-center">
+                        <i class="fas fa-cogs tech-icon"></i>
+                        <h4 class="playfair text-white mb-3 fw-bold">Automatic Movements</h4>
+                        <p class="text-muted" style="font-size: 1rem;">Found in our Luxury and Vintage lines, these intricate mechanical calibres harness the kinetic energy of your wrist, offering sweeping seconds hands and hundreds of micro-components meticulously hand-assembled.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="tech-box text-center">
+                        <i class="fas fa-gem tech-icon"></i>
+                        <h4 class="playfair text-white mb-3 fw-bold">Quartz Precision</h4>
+                        <p class="text-muted" style="font-size: 1rem;">Utilizing an electronic oscillator regulated by a quartz crystal to keep time. This technology guarantees unparalleled accuracy and low maintenance across our modern classic selections.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="tech-box text-center">
+                        <i class="fas fa-sun tech-icon"></i>
+                        <h4 class="playfair text-white mb-3 fw-bold">Solar Eco-Drive</h4>
+                        <p class="text-muted" style="font-size: 1rem;">Harnessing natural and artificial light to power the timepiece indefinitely. This eco-friendly technology stores energy in a rechargeable cell, eliminating the need for battery replacements.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-3">
+                    <div class="tech-box text-center">
+                        <i class="fas fa-microchip tech-icon"></i>
+                        <h4 class="playfair text-white mb-3 fw-bold">Smart Integration</h4>
+                        <p class="text-muted" style="font-size: 1rem;">Our Smart Watch collection features aerospace-grade materials, biometric sensors, GPS tracking, and seamless smartphone connectivity, bridging the gap between high horology and the digital age.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="spa-section">
+            <h2 class="section-title">The Complete Gallery</h2>
+            <p class="text-center mb-5 pb-3 fs-5 text-muted">A visual journey through our entire collection of Luxury, Vintage, and Smart timepieces.</p>
+            <div class="gallery-masonry" id="gallery-container">
+                <!-- Images injected via JS -->
+            </div>
+        </section>
+
+        <!-- About & Contact Section -->
+        <section id="about-contact" class="spa-section">
+            <h2 class="section-title">Contact Our Concierge</h2>
+            <div class="row g-5 mt-2 align-items-center">
+                <div class="col-lg-5">
+                    <h3 class="playfair text-white mb-4 fw-bold" style="font-size: 2.2rem;">Dedicated Service</h3>
+                    <p class="mb-4 text-muted fs-5">Whether you are seeking an appraisal, professional watch servicing, or guidance on acquiring your next heirloom, our dedicated concierges are available to provide white-glove assistance.</p>
+                    
+                    <ul class="list-unstyled mb-5 fs-5">
+                        <li class="mb-4 d-flex"><i class="fas fa-map-marker-alt text-warning me-3 mt-1 fs-4"></i> <span>123 Luxury Avenue,<br>Horology District, NY 10001</span></li>
+                        <li class="mb-4"><i class="fas fa-phone-alt text-warning me-3 fs-4"></i> <a href="tel:+18005550199" class="text-white text-decoration-none fw-bold">VIP Line: +1 (800) 555-0199</a></li>
+                        <li class="mb-4"><i class="fas fa-envelope text-warning me-3 fs-4"></i> <a href="mailto:concierge@albertowatches.com" class="text-white text-decoration-none fw-bold">concierge@albertowatches.com</a></li>
+                        <li class="mb-4"><i class="fas fa-clock text-warning me-3 fs-4"></i> Mon-Sat: 10:00 AM - 8:00 PM <br><span class="ms-4 ps-2">Sun: Closed</span></li>
+                    </ul>
+                    
+                    <h5 class="playfair text-white mb-3 fs-4">Connect With Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5 shadow-lg" style="background: var(--card-bg); border: 2px solid var(--luxury-gold); border-radius: 12px;">
+                        <h3 class="playfair text-center text-white mb-4 fw-bold">Send a Message</h3>
+                        <form>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Inquiry Type</label>
+                                    <select class="form-control form-control-lg">
+                                        <option>Sales & Acquisition</option>
+                                        <option>Repair & Servicing</option>
+                                        <option>Appraisal Services</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Your Message</label>
+                                    <textarea class="form-control form-control-lg" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <button type="submit" class="btn btn-solid-gold w-100 py-3 fs-5">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Site Map Section -->
+        <section id="sitemap" class="spa-section">
+            <h2 class="section-title">Site Map & Location</h2>
+            <div class="row g-5">
+                <div class="col-md-4">
+                    <div class="p-5 rounded shadow-lg h-100" style="background: var(--card-bg); border: 1px solid rgba(230, 194, 122, 0.3);">
+                        <h3 class="playfair text-warning mb-4 pb-3 border-bottom border-secondary fw-bold"><i class="fas fa-sitemap me-2"></i> Directory</h3>
+                        <ul class="list-group list-group-flush fs-5">
+                            <li class="list-group-item bg-transparent text-light border-secondary py-3"><a href="#" class="text-light text-decoration-none fw-semibold" onclick="$('.nav-link[data-target=\'home\']').click();"><i class="fas fa-angle-right text-warning me-2"></i> Home</a></li>
+                            <li class="list-group-item bg-transparent text-light border-secondary py-3"><a href="#" class="text-light text-decoration-none fw-semibold" onclick="$('.nav-link[data-target=\'products\']').click();"><i class="fas fa-angle-right text-warning me-2"></i> Our Collections</a></li>
+                            <li class="list-group-item bg-transparent text-light border-secondary py-3"><a href="#" class="text-light text-decoration-none fw-semibold" onclick="$('.nav-link[data-target=\'technology\']').click();"><i class="fas fa-angle-right text-warning me-2"></i> Engineering</a></li>
+                            <li class="list-group-item bg-transparent text-light border-secondary py-3"><a href="#" class="text-light text-decoration-none fw-semibold" onclick="$('.nav-link[data-target=\'gallery\']').click();"><i class="fas fa-angle-right text-warning me-2"></i> Image Gallery</a></li>
+                            <li class="list-group-item bg-transparent text-light border-secondary py-3 border-0"><a href="#" class="text-light text-decoration-none fw-semibold" onclick="$('.nav-link[data-target=\'about-contact\']').click();"><i class="fas fa-angle-right text-warning me-2"></i> Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- Accurate map embedding for a generic luxury district (5th Ave NY) -->
+                    <div class="rounded overflow-hidden shadow-lg h-100" style="min-height: 500px; border: 2px solid var(--luxury-gold);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1839486558837!2d-73.97746418459374!3d40.75797827932688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258fce71f4561%3A0x6b8d4e9c704818a7!2s5th%20Ave%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1689020000000!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h4 class="playfair text-white mb-4 fw-bold">Alberto Watch Co.</h4>
+                    <p class="text-muted" style="font-size: 1rem; line-height: 1.8;">Curators of the finest luxury timepieces, vintage classics, and smart horological innovations since 1985. Excellence on your wrist.</p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="text-white mb-4 text-uppercase fw-bold" style="letter-spacing: 1.5px;">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a href="#" class="footer-link" onclick="$('.nav-link[data-target=\'products\']').click();">Shop Collections</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link" onclick="$('.nav-link[data-target=\'about-contact\']').click();">Service & Repair</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link" onclick="$('.nav-link[data-target=\'about-contact\']').click();">Appraisals</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link" onclick="$('.nav-link[data-target=\'sitemap\']').click();">Store Locator</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="text-white mb-4 text-uppercase fw-bold" style="letter-spacing: 1.5px;">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Terms of Service</a></li>
+                        <li class="mb-3"><a href="#" class="footer-link">Authenticity Guarantee</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="text-white mb-4 text-uppercase fw-bold" style="letter-spacing: 1.5px;">The Newsletter</h6>
+                    <p class="text-muted mb-4">Subscribe to receive updates on exclusive releases and vintage acquisitions.</p>
+                    <div class="input-group mb-3 shadow-sm">
+                        <input type="email" class="form-control form-control-lg border-secondary" placeholder="Email Address">
+                        <button class="btn btn-solid-gold" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary pt-4 mt-5 text-center text-muted">
+                <p class="mb-0 fs-6">&copy; <span id="year"></span> Alberto Watch Company. All Rights Reserved. <span class="text-warning">Designed for the Finale.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Editorial Product Details Modal with Split-Screen Inquiry Form -->
+    <div class="modal fade" id="productModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content p-0">
+                <div class="modal-header px-4 py-3">
+                    <h4 class="modal-title playfair fw-bold" id="modal-title" style="color: var(--luxury-gold);">Watch Name</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="row g-0 align-items-stretch">
+                        
+                        <!-- Left Side: Always-Visible Image -->
+                        <div class="col-lg-5 d-none d-lg-block border-end border-secondary" style="background: #fff;">
+                            <img id="modal-img-desktop" src="" class="img-fluid h-100 w-100" style="object-fit: cover; max-height: 600px;">
+                        </div>
+                        
+                        <!-- Right Side: Details / Form Toggle -->
+                        <div class="col-lg-7 p-4 p-md-5">
+                            
+                            <!-- Mobile Image Fallback -->
+                            <img id="modal-img-mobile" src="" class="img-fluid w-100 rounded mb-4 d-lg-none border border-secondary" style="object-fit: cover; max-height: 300px;">
+                            
+                            <!-- Details View -->
+                            <div id="modal-details-view">
+                                <h2 id="modal-price" class="playfair mb-3 fw-bold" style="color: var(--luxury-gold); font-size: 2.5rem;"></h2>
+                                <span class="badge border border-warning text-warning mb-4 py-2 px-3 fs-6 rounded-pill" id="modal-cat-badge"></span>
+                                <p id="modal-desc" class="text-light mb-5" style="line-height: 1.8; font-size: 1.15rem;"></p>
+                                
+                                <hr class="border-secondary mb-4">
+                                <h5 class="text-white mb-3 fw-bold">Interested in this piece?</h5>
+                                <p class="text-muted mb-4">Speak directly with our horology experts to arrange a viewing, check availability, or discuss secure shipping options.</p>
+                                
+                                <button id="btn-show-inquiry" class="btn btn-solid-gold w-100 py-3 fs-5 shadow"><i class="fas fa-envelope me-2"></i> Inquire About This Timepiece</button>
+                            </div>
+                            
+                            <!-- Form View (Hidden by default) -->
+                            <div id="inquiry-form-container" style="display: none;">
+                                <h3 class="playfair text-warning mb-2 fw-bold">Direct Inquiry</h3>
+                                <p class="text-muted mb-4 pb-2 border-bottom border-secondary">Please provide your details below and our concierge will contact you regarding this specific timepiece.</p>
+                                
+                                <form id="inquiryForm">
+                                    <input type="hidden" id="inquiry-watch-name">
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Full Name</label>
+                                            <input type="text" class="form-control form-control-lg" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Email Address</label>
+                                            <input type="email" class="form-control form-control-lg" required>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Message</label>
+                                            <textarea class="form-control form-control-lg" rows="4" placeholder="I am interested in acquiring this timepiece..." required></textarea>
+                                        </div>
+                                        <div class="col-12 mt-5 d-flex justify-content-between gap-3">
+                                            <button type="button" id="btn-cancel-inquiry" class="btn btn-outline-light btn-lg w-50 fw-bold">Back</button>
+                                            <button type="submit" class="btn btn-solid-gold btn-lg w-50">Send Inquiry</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scrolling Ticker -->
+    <div class="ticker-container">
+        <marquee behavior="scroll" direction="left" id="scrolling-ticker">
+            Initializing secure connection to global horology network...
+        </marquee>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Set Copyright Year
+            $('#year').text(new Date().getFullYear());
+
+            // 1. Session Visitor Count
+            let visits = sessionStorage.getItem('alberto_session_visitors');
+            if (!visits) { visits = 0; }
+            visits++;
+            sessionStorage.setItem('alberto_session_visitors', visits);
+            $('.visitor-count-desktop, .visitor-count-mobile').text(visits);
+
+            // 2. SPA Menu Navigation
+            $('.nav-link, .navbar-brand').click(function(e) {
+                e.preventDefault();
+                let targetId = $(this).data('target');
+                if(!targetId) return;
+
+                $('.nav-link').removeClass('active-link');
+                if($(this).hasClass('nav-link')) {
+                    $(this).addClass('active-link');
+                } else {
+                    $('.nav-link[data-target="home"]').addClass('active-link');
+                }
+
+                $('.spa-section:visible').fadeOut(300, function() {
+                    $('#' + targetId).fadeIn(400);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+
+            // 3. Extended JSON Data Store
+            const jsonData = [
+                { "id": 1, "name": "Rolex Submariner", "category": "Luxury", "price": "$10,500", "desc": "The quintessential diver's watch. Featuring a rotatable bezel and a robust steel casing.", "img": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=800&q=80" },
+                { "id": 2, "name": "Bulova Classic", "category": "Vintage", "price": "$350", "desc": "A nod to the golden era of watchmaking. Features a genuine leather strap and a minimalist dial.", "img": "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=800&q=80" },
+                { "id": 3, "name": "Apple Watch Ultra", "category": "Smart Watches", "price": "$799", "desc": "Aerospace-grade titanium paired with unparalleled digital connectivity. The ultimate tool.", "img": "https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=800&q=80" },
+                { "id": 4, "name": "Citizen Eco-Drive", "category": "Luxury", "price": "$450", "desc": "Powered by any light, never needing a battery. A stunning marriage of sustainability and design.", "img": "https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=800&q=80" },
+                { "id": 5, "name": "Patek Philippe Nautilus", "category": "Luxury", "price": "$35,000", "desc": "The epitome of elegant sports watches since 1976. Features the iconic rounded octagonal bezel.", "img": "https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=800&q=80" },
+                { "id": 6, "name": "Audemars Piguet Royal Oak", "category": "Luxury", "price": "$28,500", "desc": "A masterpiece of avant-garde design, featuring the trademark tapisserie dial and integrated bracelet.", "img": "https://images.unsplash.com/photo-1587836374828-cb4387df3eb7?auto=format&fit=crop&w=800&q=80" },
+                { "id": 7, "name": "Omega Speedmaster Pro", "category": "Vintage", "price": "$6,400", "desc": "The legendary Moonwatch. A pillar of chronograph history, celebrated for its robust manual-winding movement.", "img": "https://images.unsplash.com/photo-1639599583486-13e55c3c2fcd?auto=format&fit=crop&w=800&q=80" },
+                { "id": 8, "name": "TAG Heuer Monaco", "category": "Vintage", "price": "$7,100", "desc": "The iconic square-cased chronograph famously worn by Steve McQueen, epitomizing motorsport heritage.", "img": "https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=800&q=80" },
+                { "id": 9, "name": "Galaxy Watch 6 Classic", "category": "Smart Watches", "price": "$399", "desc": "A brilliant fusion of traditional watch aesthetics with a rotating bezel and advanced health tracking.", "img": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=800&q=80" },
+                { "id": 10, "name": "Garmin Fenix 7X Sapphire", "category": "Smart Watches", "price": "$999", "desc": "The apex of multisport GPS watches. Features a scratch-resistant sapphire solar lens and built-in flashlight.", "img": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80" }
+            ];
+
+            // 4. Render Products Function
+            function renderProducts(filter) {
+                $('#product-list').empty();
+                let filteredData = (filter === 'All') ? jsonData : jsonData.filter(w => w.category === filter);
+                
+                filteredData.forEach(watch => {
+                    let card = `
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 text-center">
+                                <img src="${watch.img}" class="card-img-top product-img" alt="${watch.name}">
+                                <div class="card-body d-flex flex-column p-4">
+                                    <h5 class="card-title mb-2">${watch.name}</h5>
+                                    <p class="text-muted small text-uppercase fw-bold mb-4" style="letter-spacing: 1px;">${watch.category}</p>
+                                    <button class="btn btn-solid-gold mt-auto view-details-btn w-100" data-id="${watch.id}">Explore Timepiece</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    $('#product-list').hide().append(card).fadeIn(600);
+                });
+            }
+
+            // 5. Render Gallery Function (Masonry)
+            function renderGallery() {
+                $('#gallery-container').empty();
+                jsonData.forEach(watch => {
+                    let item = `
+                        <div class="gallery-item">
+                            <img src="${watch.img}" alt="${watch.name}">
+                            <div class="gallery-overlay">${watch.name}</div>
+                        </div>
+                    `;
+                    $('#gallery-container').append(item);
+                });
+            }
+
+            // Initialize all products and gallery
+            renderProducts('All');
+            renderGallery();
+
+            // Category Filtering
+            $('.category-btn').click(function() {
+                $('.category-btn').removeClass('active');
+                $(this).addClass('active');
+                let category = $(this).data('category');
+                renderProducts(category);
+            });
+
+            // Split-Screen Product Modal Logic
+            $(document).on('click', '.view-details-btn', function() {
+                let watchId = $(this).data('id');
+                let watch = jsonData.find(w => w.id === watchId);
+                
+                if(watch) {
+                    $('#modal-title').text(watch.name);
+                    $('#modal-img-desktop').attr('src', watch.img);
+                    $('#modal-img-mobile').attr('src', watch.img);
+                    $('#modal-price').text(watch.price);
+                    $('#modal-cat-badge').text(watch.category);
+                    $('#modal-desc').text(watch.desc);
+                    $('#inquiry-watch-name').val(watch.name);
+                    
+                    // Reset UI to Details view
+                    $('#inquiry-form-container').hide();
+                    $('#modal-details-view').show();
+                    $('#inquiryForm')[0].reset();
+
+                    $('#productModal').modal('show');
+                }
+            });
+
+            // Toggle to Form
+            $('#btn-show-inquiry').click(function() {
+                $('#modal-details-view').slideUp(300, function() {
+                    $('#inquiry-form-container').slideDown(300);
+                });
+            });
+
+            // Toggle back to Details
+            $('#btn-cancel-inquiry').click(function() {
+                $('#inquiry-form-container').slideUp(300, function() {
+                    $('#modal-details-view').slideDown(300);
+                });
+            });
+
+            $('#inquiryForm').submit(function(e) {
+                e.preventDefault();
+                alert("Thank you for your inquiry regarding the " + $('#inquiry-watch-name').val() + ". Our concierge will contact you shortly.");
+                $('#productModal').modal('hide');
+            });
+
+            // 7. Geolocation and Date/Time Ticker
+            function updateTicker(locationStr) {
+                const now = new Date();
+                const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                const dateTimeStr = now.toLocaleDateString('en-US', options);
+                $('#scrolling-ticker').text(`✦ CURRENT TIME: ${dateTimeStr} ✦ ESTABLISHED IN THE HOROLOGY DISTRICT, NY ✦ DETECTED USER LOCATION: ${locationStr} ✦ WELCOME TO ALBERTO WATCH CO. ✦`);
+            }
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude.toFixed(4);
+                        const lon = position.coords.longitude.toFixed(4);
+                        const locStr = `LAT ${lat}, LON ${lon}`;
+                        setInterval(function() { updateTicker(locStr); }, 1000);
+                    },
+                    function(error) {
+                        setInterval(function() { updateTicker("LOCATION ACCESS SECURED"); }, 1000);
+                    }
+                );
+            } else {
+                setInterval(function() { updateTicker("GEOLOCATION UNAVAILABLE"); }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
